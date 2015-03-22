@@ -1,0 +1,22 @@
+<modification>
+	<id>Smarter 404</id>
+	<version>1.0</version>
+	<vqmver>2.1.5</vqmver>
+	<author>Jason Clark (mithereal@gmail.com</author>
+<file name="catalog/controller/error/not_found.php">
+	<operation><search position="after"><![CDATA[public function index() {]]></search> 
+            <add><![CDATA[
+				
+				$request = explode("/", $_SERVER['REQUEST_URI']);
+				$seourl = null;
+				$seourl = $this->config->get('config_seo_url');
+				
+				if(($seourl)){
+$this->response->redirect($this->url->link('product/search', 'search=' . $request[1] .'&description=true'));
+            }else{
+            $this->response->redirect($this->url->link('product/search', 'search=' . $request[3] .'&description=true'));
+
+            }
+				]]></add></operation>  
+</file>
+</modification>
