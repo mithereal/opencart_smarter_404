@@ -12,8 +12,23 @@
 				$seourl = $this->config->get('config_seo_url');
 				
 				if(($seourl)){
-$this->response->redirect($this->url->link('product/search', 'search=' . $request[1] .'&description=true'));
-            }else{
+				$search_array = explode($request[1],'-');
+				//check if exists
+				if(($use_keyword_exists)){
+				
+				foreach($search_array as $s){
+				//check if exists
+				
+				if(($keyword_exists)){
+				
+				$this->response->redirect($this->url->link('product/search', 'search=' . $request[1] .'&description=true'));
+				exit();
+				}
+				}
+				
+				}
+
+			}else{
             $this->response->redirect($this->url->link('product/search', 'search=' . $request[3] .'&description=true'));
 
             }
