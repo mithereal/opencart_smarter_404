@@ -6,36 +6,31 @@
 <file name="catalog/controller/error/not_found.php">
 	<operation><search position="after"><![CDATA[public function index() {]]></search> 
             <add><![CDATA[
-				
+				$this->load->model('catalog/url_alias');
+
 				$request = explode("/", $_SERVER['REQUEST_URI']);
 				$seourl = null;
-				$search_in_array = null
 				$seourl = $this->config->get('config_seo_url');
 				
 				if(($seourl)){
 				$search_array = explode($request[1],'-');
-				//check if exists
-				if(isset($search_in_array)){
 				
 				foreach($search_array as $s){
 				//check if exists
-				$keyword = $this->db->query("SEARCH keyword FROM " . DB_PREFIX . "url_alias WHERE  keyword = '" . $this->db->escape($s]) . "'");;
+				$result = $this->model_catalog_url_alias->getUrlAlias($s);
 				
-				if(($keyword)){
-				$search = $keyword;
+				if(($result->row-count < 0)){
+				$keyword = $result->row['keyword'];
 				$this->response->redirect($this->url->link('product/search', 'search=' . $keyword .'&description=true'));
 				exit();
 				}
 				}
-				
-				}else{
-				$this->response->redirect($this->url->link('product/search', 'search=' . $request[1] .'&description=true'));
-				}
-
+					
 			}else{
             $this->response->redirect($this->url->link('product/search', 'search=' . $request[3] .'&description=true'));
-
             }
 				]]></add></operation>  
 </file>
+
+
 </modification>
