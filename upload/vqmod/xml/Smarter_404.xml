@@ -11,22 +11,18 @@
 				$request = explode("/", $_SERVER['REQUEST_URI']);
 				$seourl = null;
 				$seourl = $this->config->get('config_seo_url');
-				
+				$keywords = null;
 				if(($seourl)){
+				
 				$search_array = explode($request[1],'-');
+				$keywords = implode($search_array,',');
 				
-				foreach($search_array as $s){
-				//check if exists
-				$result = $this->model_catalog_url_alias->getUrlAlias($s);
 				
-				if(($result->row-count < 0)){
-				$keyword = $result->row['keyword'];
-				$this->response->redirect($this->url->link('product/search', 'search=' . $keyword .'&description=true'));
-				exit();
-				}
-				}
-					
+				
+			$this->response->redirect($this->url->link('product/search', 'search=' . $keywords .'&description=true'));
+			
 			}else{
+			
             $this->response->redirect($this->url->link('product/search', 'search=' . $request[3] .'&description=true'));
             }
 				]]></add></operation>  
