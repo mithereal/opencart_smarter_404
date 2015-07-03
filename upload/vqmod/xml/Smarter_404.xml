@@ -9,23 +9,27 @@
 				
 				$request = explode("/", $_SERVER['REQUEST_URI']);
 				$seourl = null;
+				$search_in_array = null
 				$seourl = $this->config->get('config_seo_url');
 				
 				if(($seourl)){
 				$search_array = explode($request[1],'-');
 				//check if exists
-				if(($use_keyword_exists)){
+				if(isset($search_in_array)){
 				
 				foreach($search_array as $s){
 				//check if exists
+				$keyword = $this->db->query("SEARCH keyword FROM " . DB_PREFIX . "url_alias WHERE  keyword = '" . $this->db->escape($s]) . "'");;
 				
-				if(($keyword_exists)){
-				
-				$this->response->redirect($this->url->link('product/search', 'search=' . $request[1] .'&description=true'));
+				if(($keyword)){
+				$search = $keyword;
+				$this->response->redirect($this->url->link('product/search', 'search=' . $keyword .'&description=true'));
 				exit();
 				}
 				}
 				
+				}else{
+				$this->response->redirect($this->url->link('product/search', 'search=' . $request[1] .'&description=true'));
 				}
 
 			}else{
