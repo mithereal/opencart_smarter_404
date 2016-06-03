@@ -15,7 +15,7 @@
 				if(($seourl)){
 				
 				$search_array = explode($request[1],'-');
-				$keywords = implode($search_array,',');
+				$keywords = implode($search_array,' ');
 				
 				
 				
@@ -23,7 +23,7 @@
 			
 			}else{
 			
-            $this->response->redirect($this->url->link('product/search', 'search=' . $request[3] .'&description=true'));
+          $this->response->redirect($this->url->link('product/search', 'search=' . $request[3] .'&description=true'));
             }
 				]]></add></operation>  
 </file>
